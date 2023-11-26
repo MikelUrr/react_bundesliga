@@ -1,0 +1,90 @@
+.team-dashboard {
+    max-width: 800px;
+    margin: 0 auto;
+    padding: 20px;
+  }
+  
+  .back-link {
+    display: block;
+    margin-bottom: 20px;
+    text-decoration: none;
+    color: #007bff;
+  }
+  
+  .team-title {
+    font-size: 24px;
+    margin-bottom: 10px;
+    text-align: center;
+  }
+  
+  .selected-year {
+    font-size: 16px;
+    margin-bottom: 20px;
+    color: #555;
+    text-align: center;
+  }
+  
+  .matches-list {
+    list-style: none;
+    padding: 0;
+  }
+  
+  .match-item {
+    border: 1px solid #ddd;
+    margin-bottom: 10px;
+    padding: 10px;
+  }
+  
+  .match-date {
+    font-size: 14px;
+    margin-bottom: 5px;
+    text-align: center;
+  }
+  
+  .teams {
+    font-size: 18px;
+    margin-bottom: 5px;
+    text-align: center;
+  }
+  
+  .result {
+    font-size: 16px;
+    font-weight: bold;
+    text-align: center;
+  }
+  
+  .no-results {
+    color: #777;
+  }
+
+  @keyframes loading {
+    0% {
+      left: -100%;
+    }
+  
+    100% {
+      left: 100%;
+    }
+  }
+  
+  .wrapper {
+    border: 3px solid var(--color-opposite);
+    padding: 4px;
+    width: 160px;
+    height: 16px;
+  }
+  
+  .space {
+    position: relative;
+    width: 100%;
+    height: 100%;
+    overflow: hidden;
+  }
+  
+  .loading {
+    position: absolute;
+    background-color: var(--color-primary);
+    width: 100%;
+    height: 100%;
+    animation: loading 5s steps(40) infinite;
+  }

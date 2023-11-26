@@ -1,0 +1,53 @@
+/* styles.css */
+
+.container {
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+    flex-direction: column;
+}
+.bundesliga-table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 20px;
+}
+
+.table-header, .table-data {
+    border: 1px solid #ddd;
+    padding: 8px;
+    text-align: center;
+}
+.team-icon{border: 1px solid #ddd;}
+.team-icon img {
+    width: 30px; 
+    height: auto;
+    display: flex;
+    place-items: center;
+    margin: auto;
+    max-width: 100%;
+    max-height: 100%;
+    
+}
+
+.team-link {
+    text-decoration: none;
+    color: #007bff;
+    font-weight: bold;
+}
+
+.table-row:hover {
+    background-color: #f5f5f5; 
+}
+
+h1 img {
+    width: 400px; 
+    height: auto;
+    display: block;
+    margin: auto;
+    max-width: 100%;
+    max-height: 100%;
+}
+
+.champions-row{
+    border: 1px solid rgba(0, 0, 255, 0.336);
+}
