@@ -45,7 +45,7 @@ const TeamDashboard = () => {
 
   return (
     <div className="team-dashboard">
-      <Link to="/" className="back-link">Atrás</Link>
+      <button className="back-link"><Link to="/" >Atrás</Link></button>
       <h2 className="team-title">Resultados del  {shortName} </h2>
       <p className="selected-year">Año: {selectedYear}</p>
 
