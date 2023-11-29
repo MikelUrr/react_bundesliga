@@ -10,28 +10,31 @@ const MainPage = () => {
   const [plotRelativeData, setPlotRelativeData] = useState([]);
 
   useEffect(() => {
-    fetch(`https://api.openligadb.de/getbltable/bl1/${selectedYear}`)
-      .then(response => response.json())
-      .then(data => {
+    const fetchData = async () => {
+      try {
+        const response = await fetch(`https://api.openligadb.de/getbltable/bl1/${selectedYear}`);
+        const data = await response.json();
         setTableData(data);
-        console.log(data);
-      })
-      .catch(error => {
+      } catch (error) {
         console.error('Error fetching data:', error);
-      });
+      }
+    };
+    console.log("Rendering with year:", typeof selectedYear);
+    fetchData();
   }, [selectedYear]);
-
+  
   useEffect(() => {
-    const sortedData = tableData.sort((a, b) => b.goals - a.goals);
+    console.log("tableData updated:", tableData);
+    const sortedData = [...tableData].sort((a, b) => b.goals - a.goals);
     const newPlotData = [barChart(sortedData)];
     setPlotData(newPlotData);
   }, [tableData]);
-
+  
   useEffect(() => {
     const newPlotRelativeData = [relativeBarchart(tableData)];
     setPlotRelativeData(newPlotRelativeData);
   }, [tableData]);
-
+  
   const relativeBarchart = (data) => {
     return {
       x: data.map((team) => team.teamName),
@@ -55,7 +58,7 @@ const MainPage = () => {
   };
 
   const handleYearChange = (e) => {
-    setSelectedYear(e.target.value);
+    setSelectedYear(parseInt(e.target.value, 10));
   };
 
   const yearOptions = [];
@@ -70,44 +73,47 @@ const MainPage = () => {
       <select id="yearSelector" onChange={handleYearChange} value={selectedYear}>
         {yearOptions}
       </select>
-
-      <table className="bundesliga-table">
-            <thead>
-                <tr>
-                    <th className="table-header">Icono</th>
-                    <th className="table-header">Posición</th>
-                    <th className="table-header">Equipo</th>
-                    <th className="table-header">Puntos</th>
-                    <th className="table-header">PJ</th>
-                    <th className="table-header">PG</th>
-                    <th className="table-header">PE</th>
-                    <th className="table-header">PP</th>
-                </tr>
-            </thead>
-            <tbody>
-                {tableData.map((team, index) => (
-                    <tr key={index} className="table-row">
-                        <td className="team-icon"><img src={team.teamIconUrl} alt={`Icono del equipo ${team.teamName}`} /></td>
-                        <td className="table-data">{index + 1}</td>
-
-                        <td className="table-data">
-                            <Link to={`/team/${team.shortName}?year=${selectedYear}`} className="team-link">{team.teamName}</Link>
-                        </td>
-                        <td className="table-data">{team.points}</td>
-                        <td className="table-data">{team.matches}</td>
-                        <td className="table-data">{team.won}</td>
-                        <td className="table-data">{team.draw}</td>
-                        <td className="table-data">{team.lost}</td>
-                    </tr>
-                ))}
-            </tbody>
-        </table>
-
+<table>
+      <thead>
+        <tr>
+          <th className="table-header">Icono</th>
+          <th className="table-header">Posición</th>
+          <th className="table-header">Equipo</th>
+          <th className="table-header">Puntos</th>
+          <th className="table-header">PJ</th>
+          <th className="table-header">PG</th>
+          <th className="table-header">PE</th>
+          <th className="table-header">PP</th>
+          {selectedYear === 2023 && <th className="table-header">Más detalles</th>}
+        </tr>
+      </thead>
+      <tbody>
+        {tableData.map((team, index) => (
+          <tr key={index} className="table-row">
+            <td className="team-icon"><img src={team.teamIconUrl} alt={`Icono del equipo ${team.teamName}`} /></td>
+            <td className="table-data">{index + 1}</td>
+            <td className="table-data">
+              <Link to={`/team/${team.shortName}?year=${selectedYear}`} className="team-link">{team.teamName}</Link>
+            </td>
+            <td className="table-data">{team.points}</td>
+            <td className="table-data">{team.matches}</td>
+            <td className="table-data">{team.won}</td>
+            <td className="table-data">{team.draw}</td>
+            <td className="table-data">{team.lost}</td>
+            {selectedYear === 2023 && (
+              <td className="table-data">
+                <Link to={`/2023/${team.teamInfoId}`} className="team-link">mas info</Link>
+              </td>
+            )}
+          </tr>
+        ))}
+      </tbody>
+      </table>
       <Plot data={plotData} layout={{ width: 800, height: 800, title: 'Total Goals' }} />
       <Plot
         data={plotRelativeData}
         layout={{
-          
+
           yaxis: { title: 'diff goles' },
           barmode: 'relative',
           title: 'Diferencia de goles',
