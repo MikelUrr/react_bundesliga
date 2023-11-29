@@ -1,19 +1,28 @@
 import React, { useState, useEffect } from "react";
-import { useParams , Link} from 'react-router-dom';
+import { useParams, Link } from 'react-router-dom';
 import { MapContainer, TileLayer, Marker, Popup } from 'react-leaflet';
 import 'leaflet/dist/leaflet.css';
 import equiposBundesliga from "./../info";
+import ErrorPage from "./ErrorPage";
 
 const InfoTeam = () => {
   const { teamInfoId } = useParams();
   const teamId = parseInt(teamInfoId, 10);
 
   const [matches, setMatches] = useState([]);
+  const [error, setError] = useState(null);
 
   const fetchTeamData = async (teamInfoId) => {
-    const response = await fetch(`https://api.openligadb.de/getmatchesbyteamid/${teamInfoId}/0/10`);
-    const data = await response.json();
-    setMatches(data);
+    try {
+      const response = await fetch(`https://api.openligadb.de/getmatchesbyteamid/${teamInfoId}/0/10`);
+      if (!response.ok) {
+        throw new Error(`Error: ${response.statusText}`);
+      }
+      const data = await response.json();
+      setMatches(data);
+    } catch (error) {
+      setError(error);
+    }
   };
 
   useEffect(() => {
@@ -28,12 +37,16 @@ const InfoTeam = () => {
     const formattedTime = `${padZero(dateTime.getHours())}:${padZero(dateTime.getMinutes())}`;
     return `Fecha ${formattedDate} Hora ${formattedTime}`;
   };
+
   const padZero = (value) => (value < 10 ? `0${value}` : value);
 
+  if (error) {
+    return <ErrorPage />;
+  }
 
   return (
     <div>
-         <button className="back-link"><Link to="/">Atrás</Link></button>
+      <button className="back-link"><Link to="/">Atrás</Link></button>
       {teamInfo && (
         <>
           <h1>{teamInfo.nombre}</h1>
@@ -61,7 +74,6 @@ const InfoTeam = () => {
                 <h3>{match.leagueName}</h3>
                 <p>{formatDateTime(match.matchDateTime)}</p>
                 <p>{match.team1.teamName} vs. {match.team2.teamName}</p>
-               
               </li>
             ))}
           </ul>

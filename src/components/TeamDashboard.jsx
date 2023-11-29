@@ -2,12 +2,12 @@ import React, { useEffect, useState } from 'react';
 import { useParams, useLocation, Link } from 'react-router-dom';
 import '../TeamDashboardstyles.css';
 import Plot from 'react-plotly.js';
+import ErrorPage from "./ErrorPage";
 
 const TeamDashboard = () => {
   const { shortName } = useParams();
   const location = useLocation();
   const selectedYear = new URLSearchParams(location.search).get('year');
-  console.log(selectedYear)
   const [matches, setMatches] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
@@ -16,13 +16,15 @@ const TeamDashboard = () => {
 
   const fetchTeamData = async (year, shortName) => {
     const response = await fetch(`https://api.openligadb.de/getmatchdata/bl1/${year}/${shortName}`);
+    if (!response.ok) {
+      throw new Error(`Error: ${response.statusText}`);
+    }
     const data = await response.json();
     return data;
   };
 
   const calculateMatchStats = (matches, targetShortName) => {
     const teamStats = [];
-
     matches.forEach((match, index) => {
       const team1 = match.team1;
       const team2 = match.team2;
@@ -41,7 +43,7 @@ const TeamDashboard = () => {
           } else if (goalsTeam1 < goalsTeam2) {
             result = 0;
           } else {
-            result = 1; 
+            result = 1;
           }
 
           const matchStats = {
@@ -96,16 +98,20 @@ const TeamDashboard = () => {
       const data = await fetchTeamData(year, shortName);
       const targetShortName = shortName;
       const teamStats = calculateMatchStats(data, targetShortName);
-
+  
       const jsonResult = JSON.stringify(teamStats, null, 2);
       console.log(jsonResult);
-
+  
+      if (teamStats.length === 0) {
+        throw new Error("No se encontraron estadísticas del equipo.");
+      }
+  
       setMatches(data);
       setLoading(false);
-
+  
       const piePlot = [pieChart(teamStats)];
       Setpieplot(piePlot);
-
+  
       const newPlotData = [scatterChart(teamStats)];
       setPlotData(newPlotData);
     } catch (error) {
@@ -113,21 +119,22 @@ const TeamDashboard = () => {
       setLoading(false);
     }
   };
-
   useEffect(() => {
     fetchData(selectedYear, shortName);
   }, [shortName, selectedYear]);
 
   if (loading) {
-    return <div className="wrapper">
-      <div className="space">
-        <div className="loading"></div>
+    return (
+      <div className="wrapper">
+        <div className="space">
+          <div className="loading"></div>
+        </div>
       </div>
-    </div>;
+    );
   }
 
   if (error) {
-    return <p className="error">Error al cargar los datos: {error.message}</p>;
+    return <ErrorPage />;
   }
 
   return (
