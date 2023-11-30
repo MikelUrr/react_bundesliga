@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { useParams, useLocation, Link } from 'react-router-dom';
+import { useParams, useLocation, Link} from 'react-router-dom';
 import '../TeamDashboardstyles.css';
 import Plot from 'react-plotly.js';
 import ErrorPage from "./ErrorPage";
@@ -15,12 +15,24 @@ const TeamDashboard = () => {
   const [pieplot, Setpieplot] = useState([]);
 
   const fetchTeamData = async (year, shortName) => {
-    const response = await fetch(`https://api.openligadb.de/getmatchdata/bl1/${year}/${shortName}`);
-    if (!response.ok) {
-      throw new Error(`Error: ${response.statusText}`);
+    try {
+      const response = await fetch(`https://api.openligadb.de/getmatchdata/bl1/${year}/${shortName}`);
+      
+      if (!response.ok) {
+        throw new Error(`Error: ${response.statusText}`);
+      }
+  
+      const data = await response.json();
+  
+      
+      if (!data || data.length === 0) {
+        throw new Error("No hay datos de partidos disponibles.");
+      }
+  
+      return data;
+    } catch (error) {
+      return <ErrorPage />;
     }
-    const data = await response.json();
-    return data;
   };
 
   const calculateMatchStats = (matches, targetShortName) => {

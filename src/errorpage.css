@@ -1,0 +1,37 @@
+#error-page {
+    text-align: center;
+    margin: 50px auto;
+  }
+  
+  h1 {
+    font-size: 3em;
+    color: #ff4500; /* Color naranja */
+  }
+  
+  p {
+    font-size: 1.5em;
+    color: #333;
+  }
+  
+  img {
+
+  
+    margin: 20px 0;
+    align-items: center;
+  }
+  
+  a {
+    text-decoration: none;
+    color: #0066cc; /* Color azul */
+  }
+  
+  ul {
+    list-style: none;
+    padding: 0;
+  }
+  
+  li {
+    font-size: 1.2em;
+    margin-bottom: 5px;
+  }
+  
