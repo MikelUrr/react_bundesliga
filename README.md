@@ -1,4 +1,4 @@
-# Pokemongol
+# Bundesliga
 
 Bundesliga Stats es un proyecto desarrollado por completo con React, que utiliza la OpenLigaDB API para obtener los datos. Este proyecto consta de tres secciones principales: la Clasificación, un área con informacion de todos los partido de los ultimos años y, por último, una sección de Información de Equipos donde puedes explorar detalles detallados de cada equipo de la Bundesliga. Descubre la tabla de clasificación, marca tus equipos favoritos y explora información detallada sobre los equipos participantes en la liga.
 
