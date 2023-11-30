@@ -1,3 +1,104 @@
+/* Estilos generales para el componente InfoTeam */
+
+div {
+    max-width: 800px;
+    margin: auto;
+    padding: 20px;
+  }
+  
+  button.back-link {
+    background-color: #007bff;
+    color: #fff;
+    padding: 10px 15px;
+    border: none;
+    border-radius: 4px;
+    margin-bottom: 20px;
+    text-decoration: none;
+    cursor: pointer;
+    font-size: 16px;
+  }
+  
+  button.back-link a {
+    color: #fff;
+    text-decoration: none;
+  }
+  
+  h1 {
+    color: black;
+    text-align: center;
+    text-decoration: dotted;
+    text-rendering: geometricPrecision;
+    font-size: 60px;
+    transition: color 0.3s ease, text-shadow 0.3s ease;
+  }
+  
+  h1:hover {
+    color: rgba(0, 0, 0, 0.87)
+    ;
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3); /* Añade un sombreado suave */
+  }
+  
+  img {
+    max-width: 100%;
+    height: auto;
+    margin-bottom: 20px;
+  }
+  
+  p {
+    margin-bottom: 10px;
+  }
+  
+  /* Estilos para el mapa */
+  
+  .MapContainer {
+    height: 400px;
+    margin-top: 20px;
+  }
+  
+  /* Estilos para la lista de partidos */
+  
+  h2 {
+    color: black;
+    text-align: center;
+  }
+  
+  ul {
+    list-style-type: none;
+    padding: 0;
+    
+  }
+  
+  li {
+    margin-bottom: 20px;
+   
+  }
+  
+  h3 {
+    color: black;
+    text-align: center;
+  }
+  
+  p {
+    margin: 5px 0;
+  }
+  
+  /* Estilos para la página de error */
+  
+  .error-message {
+    color: #ff0000;
+    font-size: 18px;
+    text-align: center;
+  }
+  img {
+    width: 200px;
+    height: auto;
+    display: flex;
+    place-items: center;
+    margin: auto;
+    max-width: 100%;
+    max-height: 100%;
+}
+
 .team-dashboard {
     max-width: 800px;
     margin: 0 auto;
@@ -30,196 +131,47 @@
   }
   
   .match-item {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
     border: 1px solid #ddd;
     margin-bottom: 10px;
     padding: 10px;
-    flex-direction: column;
+    border-radius: 10px;
     transition: transform 0.3s ease; 
   }
-  
   .match-item:hover {
-    transform: scale(1.05);
+    transform: scale(1.05); 
+    box-shadow: #555;
   }
-  .match-date,
-.teams,
-.result {
-  text-align: center;
-}
   .match-date {
     font-size: 14px;
     margin-bottom: 5px;
     text-align: center;
-    font-weight: bold;
   }
   
   .teams {
     font-size: 18px;
     margin-bottom: 5px;
-    display: flex;
-    align-items: center;
+    text-align: center;
   }
   
-  .teams img {
-    width: 30px;
-    height: auto;
-    margin-right: 10px;
-    margin-left: 10px;
-    
-
-  }
   .result {
     font-size: 16px;
     font-weight: bold;
     text-align: center;
   }
-  
-  .no-results {
-    color: #777;
-  }
-  .lds-spinner {
-    color: official;
-    display: inline-block;
-    position: relative;
-    width: 80px;
-    height: 80px;
-  }
-  .lds-spinner div {
-    transform-origin: 40px 40px;
-    animation: lds-spinner 1.2s linear infinite;
-  }
-  .lds-spinner div:after {
-    content: " ";
-    display: block;
-    position: absolute;
-    top: 3px;
-    left: 37px;
-    width: 6px;
-    height: 18px;
-    border-radius: 20%;
-    background: #fff;
-  }
-  .lds-spinner div:nth-child(1) {
-    transform: rotate(0deg);
-    animation-delay: -1.1s;
-  }
-  .lds-spinner div:nth-child(2) {
-    transform: rotate(30deg);
-    animation-delay: -1s;
-  }
-  .lds-spinner div:nth-child(3) {
-    transform: rotate(60deg);
-    animation-delay: -0.9s;
-  }
-  .lds-spinner div:nth-child(4) {
-    transform: rotate(90deg);
-    animation-delay: -0.8s;
-  }
-  .lds-spinner div:nth-child(5) {
-    transform: rotate(120deg);
-    animation-delay: -0.7s;
-  }
-  .lds-spinner div:nth-child(6) {
-    transform: rotate(150deg);
-    animation-delay: -0.6s;
-  }
-  .lds-spinner div:nth-child(7) {
-    transform: rotate(180deg);
-    animation-delay: -0.5s;
-  }
-  .lds-spinner div:nth-child(8) {
-    transform: rotate(210deg);
-    animation-delay: -0.4s;
-  }
-  .lds-spinner div:nth-child(9) {
-    transform: rotate(240deg);
-    animation-delay: -0.3s;
-  }
-  .lds-spinner div:nth-child(10) {
-    transform: rotate(270deg);
-    animation-delay: -0.2s;
-  }
-  .lds-spinner div:nth-child(11) {
-    transform: rotate(300deg);
-    animation-delay: -0.1s;
-  }
-  .lds-spinner div:nth-child(12) {
-    transform: rotate(330deg);
-    animation-delay: 0s;
-  }
-  @keyframes lds-spinner {
-    0% {
-      opacity: 1;
-    }
-    100% {
-      opacity: 0;
-    }
-  }
-  
-
-  .teamPlots {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    margin-top: 20px;
-    
-  }
-
-  
-  .teamPlots .plot-container {
-    margin: 20px;
-    border: 1px solid #ddd;
-    border-radius: 8px;
-    overflow: hidden;
-    
-  }
-  
-a {
-  text-decoration: none;
+  .leaflet-container.leaflet-touch-drag.leaflet-touch-zoom {
+    -ms-touch-action: none;
+    touch-action: none;
+    border-radius: 4%;
 }
-button{
-  align-items: center;
+
+p{
+    text-align: center;
 }
+
 .button-container {
   display: flex;
   justify-content: flex-end;
-  margin-right: 20px; 
-}
-
-
-.js-plotly-plot {
-  padding: 20px;
-  border: 1px solid #ddd;
-  margin: 20px;
-  border-radius: 10px;
-}
-
- p img {
-  width: 30px;
-  height: auto;
-  display: flex;
-  place-items: center;
-  margin: auto;
-  max-width: 100%;
-  max-height: 100%;
-}
-
-
-h1 {
-  color: black;
-  text-align: center;
-  text-decoration: dotted;
-  text-rendering: geometricPrecision;
-  font-size: 60px;
-  transition: color 0.3s ease, text-shadow 0.3s ease;
-}
-
-h1:hover {
-  color: rgba(0, 0, 0, 0.87)
-  ;
-  text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3); /* Añade un sombreado suave */
+  margin-right: 20px;
 }
 
 .go-top-container {
@@ -241,6 +193,28 @@ h1:hover {
 .go-top-button:hover {
   background-color: #0056b3;
 }
+
+.animacionLogo {
+	animation-duration: 5s;
+	animation-name: animacionLogo;
+	animation-iteration-count: infinite;
+  }
+@keyframes animacionLogo{
+	from {
+		-webkit-transform: rotate(0deg);
+        transform: rotateY(0deg);
+	}
+  50%{
+		-webkit-transform: rotate(180deg);
+        transform: rotateY(180deg);
+	} 
+	to {
+		-webkit-transform: rotate(360deg);
+        transform: rotateY(360deg);
+		}
+}
+
+
   /*!
  *
  * bttn.css - https://ganapativs.github.io/bttn.css

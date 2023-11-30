@@ -54,9 +54,7 @@ const TeamDashboard = () => {
           };
 
           teamStats.push(matchStats);
-        } else {
-          console.error(`No se encontraron resultados válidos para el partido ${index + 1}`);
-        }
+        } 
       }
     });
 
@@ -89,7 +87,9 @@ const TeamDashboard = () => {
     return {
       values: [winPercentage, drawPercentage, lossPercentage],
       labels: ['% Victorias', '% empates', '% derrotas'],
-      type: 'pie'
+      type: 'pie',
+      textinfo:'percent+label',
+      hoverinfo:'skip'
     };
   }
 
@@ -100,12 +100,8 @@ const TeamDashboard = () => {
       const teamStats = calculateMatchStats(data, targetShortName);
   
       const jsonResult = JSON.stringify(teamStats, null, 2);
-      console.log(jsonResult);
-  
-      if (teamStats.length === 0) {
-        throw new Error("No se encontraron estadísticas del equipo.");
-      }
-  
+      
+      
       setMatches(data);
       setLoading(false);
   
@@ -125,13 +121,18 @@ const TeamDashboard = () => {
 
   if (loading) {
     return (
-      <div className="wrapper">
-        <div className="space">
-          <div className="loading"></div>
-        </div>
-      </div>
-    );
-  }
+      <div className="lds-spinner"><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div></div>
+  )}
+
+  const formatDateTime = (dateTimeString) => {
+    const dateTime = new Date(dateTimeString);
+    const formattedDate = `${padZero(dateTime.getDate())}-${padZero(dateTime.getMonth() + 1)}-${dateTime.getFullYear()}`;
+    const formattedTime = `${padZero(dateTime.getHours())}:${padZero(dateTime.getMinutes())}`;
+    return `Fecha ${formattedDate} Hora ${formattedTime}`;
+  };
+
+  const padZero = (value) => (value < 10 ? `0${value}` : value);
+
 
   if (error) {
     return <ErrorPage />;
@@ -139,34 +140,42 @@ const TeamDashboard = () => {
 
   return (
     <div className="team-dashboard">
-      <button className="back-link"><Link to="/">Atrás</Link></button>
-      <div>
+      <div className="button-container">
+      <button className="bttn-pill bttn-md bttn-primary"><Link to="/">Clasificación</Link></button>
+      </div>
+      <h1>{shortName}</h1>
+      <div className='teamPlots'>
         <Plot data={plotData} layout={{
-          width: 800,
-          height: 800,
+          width: 650,
+          height: 650,
           xaxis: { title: "Partidos jugados" },
           yaxis: { title: "Puntos" },
-          title: 'Evolución de puntos conseguidos durante la temporada'
+          title: '<b>Evolución de puntos conseguidos durante la temporada</b>'
         }} />
-        <Plot data={pieplot} layout={{ width: 800, height: 800, title: 'Resultados ' }} />
+        <Plot data={pieplot} layout={{ width: 650, height: 650,showlegend: false, title: '<b>Resultados </b>' }} />
       </div>
       <div>
-        <h2 className="team-title">Resultados del {shortName}</h2>
+        <h2 className="team-title">Resultados</h2>
         <p className="selected-year">Año: {selectedYear}</p>
         <ul className="matches-list">
           {matches.map(match => (
             <li key={match.matchID} className="match-item">
-              <p className="match-date">Fecha: {match.matchDateTime}</p>
-              <p className="teams">{match.team1.teamName} vs {match.team2.teamName}</p>
+              <p className="match-date">{formatDateTime(match.matchDateTime)}</p>
+              <p className="teams"><img src={match.team1.teamIconUrl} alt={`Icono del equipo ${match.team1.teamName}`}  /> {match.team1.teamName} vs {match.team2.teamName}<img src={match.team2.teamIconUrl} alt={`Icono del equipo ${match.team2.teamName}`}  /> </p>
               {match.matchResults && match.matchResults[1] ? (
                 <p className="result">{match.matchResults[1].pointsTeam1} : {match.matchResults[1].pointsTeam2}</p>
               ) : (
-                <p className="no-results">No hay resultados disponibles</p>
+                <p className="no-results">Partido pendiente de disputar</p>
               )}
             </li>
           ))}
         </ul>
       </div>
+      <div className="go-top-container">
+      <button className="go-top-button" onClick={() => window.scrollTo({ top: 0, behavior: 'smooth' })}>
+        Ir arriba
+      </button>
+    </div>
     </div>
   );
 };

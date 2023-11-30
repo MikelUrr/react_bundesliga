@@ -19,12 +19,14 @@ const MainPage = () => {
         console.error('Error fetching data:', error);
       }
     };
-    console.log("Rendering with year:", typeof selectedYear);
+    
+    
     fetchData();
   }, [selectedYear]);
-  
+
+ 
   useEffect(() => {
-    console.log("tableData updated:", tableData);
+   
     const sortedData = [...tableData].sort((a, b) => b.goals - a.goals);
     const newPlotData = [barChart(sortedData)];
     setPlotData(newPlotData);
@@ -70,7 +72,7 @@ const MainPage = () => {
     <div className="container">
       <h1><img src="https://www.fifplay.com/img/public/bundesliga-logo.png" alt={`Icono de la Bundesliga`} /></h1>
       <label htmlFor="yearSelector">Año seleccionado: </label>
-      <select id="yearSelector" onChange={handleYearChange} value={selectedYear}>
+      <select id="yearSelector" className="select" onChange={handleYearChange} value={selectedYear}>
         {yearOptions}
       </select>
 <table>
@@ -109,16 +111,19 @@ const MainPage = () => {
         ))}
       </tbody>
       </table>
-      <Plot data={plotData} layout={{ width: 800, height: 800, title: 'Total Goals' }} />
+      <div className="plotContainer">
+        <h1>Estadisticas de la Bundesliga</h1>
+      <Plot data={plotData} layout={{ title: '<b>Total de goles</b>' }} />
       <Plot
         data={plotRelativeData}
         layout={{
 
           yaxis: { title: 'diff goles' },
           barmode: 'relative',
-          title: 'Diferencia de goles',
+          title: '<b>Diferencia de goles</b>',
         }}
       />
+      </div>
     </div>
   );
 };

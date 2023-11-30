@@ -1,46 +1,13 @@
-/* styles.css */
-
 .container {
     display: flex;
     justify-content: flex-end;
     align-items: center;
     flex-direction: column;
-}
-.bundesliga-table {
-    width: 100%;
-    border-collapse: collapse;
-    margin-top: 20px;
-}
-
-.table-header, .table-data {
-    border: 1px solid #ddd;
-    padding: 8px;
-    text-align: center;
-}
-.team-icon{border: 1px solid #ddd;}
-.team-icon img {
-    width: 30px; 
-    height: auto;
-    display: flex;
-    place-items: center;
-    margin: auto;
-    max-width: 100%;
-    max-height: 100%;
-    
-}
-
-.team-link {
-    text-decoration: none;
-    color: #007bff;
-    font-weight: bold;
-}
-
-.table-row:hover {
-    background-color: #f5f5f5; 
+    padding: 20px;
 }
 
 h1 img {
-    width: 400px; 
+    width: 400px;
     height: auto;
     display: block;
     margin: auto;
@@ -48,3 +15,90 @@ h1 img {
     max-height: 100%;
 }
 
+label {
+    margin-top: 10px;
+    margin-bottom: 5px;
+    font-size: 16px;
+    color: black; 
+}
+
+.select {
+    width: 90px;
+    padding: 8px;
+    font-size: 14px;
+    border: 1px solid black; 
+    border-radius: 4px;
+    color: black; 
+    background-color: #fff; 
+    cursor: pointer;
+    outline: none; 
+    margin-bottom: 20px; 
+    text-align: center;
+}
+input{
+    width: 90px;
+}
+
+.select:hover {
+    border-color: grey; 
+}
+
+.select:focus {
+    box-shadow: 0 0 5px #0c0c0c48;
+}
+
+.bundesliga-table {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+.table-header, .table-data {
+    border: 1px solid #ddd;
+    padding: 8px;
+    text-align: center;
+}
+
+.team-icon {
+    border: 1px solid #ddd;
+}
+
+.team-icon img {
+    width: 30px;
+    height: auto;
+    display: flex;
+    place-items: center;
+    margin: auto;
+    max-width: 100%;
+    max-height: 100%;
+}
+
+.team-link {
+    text-decoration: none;
+    color:rgb(2,0,36);
+    ;
+    font-weight: bold;
+}
+
+.table-row:hover {
+    background-color: #f5f5f5;
+}
+
+.plotContainer {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    align-items: center;
+    align-content: center;
+    justify-content: space-around;
+    margin-top: 30px;
+}
+
+.js-plotly-plot {
+    padding: 20px;
+    border: 1px solid #ddd;
+    margin: 20px;
+}
+
+h1 {
+    font-size: 60px;
+}

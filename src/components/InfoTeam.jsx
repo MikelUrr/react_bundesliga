@@ -4,6 +4,7 @@ import { MapContainer, TileLayer, Marker, Popup } from 'react-leaflet';
 import 'leaflet/dist/leaflet.css';
 import equiposBundesliga from "./../info";
 import ErrorPage from "./ErrorPage";
+import "./../infoTeam.css"
 
 const InfoTeam = () => {
   const { teamInfoId } = useParams();
@@ -29,6 +30,11 @@ const InfoTeam = () => {
     fetchTeamData(teamId);
   }, [teamId]);
 
+  useEffect(() => {
+    
+    window.scrollTo(0, 0);
+  }, [matches]);
+
   const teamInfo = equiposBundesliga[teamId];
 
   const formatDateTime = (dateTimeString) => {
@@ -46,14 +52,16 @@ const InfoTeam = () => {
 
   return (
     <div>
-      <button className="back-link"><Link to="/">Atrás</Link></button>
+      <div className="button-container">
+      <button className="bttn-pill bttn-md bttn-primary"><Link to="/">Clasificación</Link></button>
+      </div>
       {teamInfo && (
         <>
           <h1>{teamInfo.nombre}</h1>
-          <img src={teamInfo.logo} alt={`Logo de ${teamInfo.nombre}`} />
-          <p>Ciudad: {teamInfo.ciudad}</p>
-          <p>Historia: {teamInfo.historia}</p>
-          <p>Jugadores Famosos: {teamInfo.jugadoresFamosos}</p>
+          <img className="animacionLogo" src={teamInfo.logo} alt={`Logo de ${teamInfo.nombre}`} />
+          <h3>Ciudad:</h3>
+          <p>{teamInfo.ciudad}</p>
+          
           {teamInfo.coordenadasEstadio && (
             <MapContainer center={[teamInfo.coordenadasEstadio.latitud, teamInfo.coordenadasEstadio.longitud]} zoom={13} style={{ height: "400px", marginTop: "20px" }}>
               <TileLayer
@@ -67,18 +75,28 @@ const InfoTeam = () => {
               </Marker>
             </MapContainer>
           )}
-          <h2>Partidos</h2>
-          <ul>
-            {matches.map((match) => (
-              <li key={match.matchID}>
-                <h3>{match.leagueName}</h3>
-                <p>{formatDateTime(match.matchDateTime)}</p>
-                <p>{match.team1.teamName} vs. {match.team2.teamName}</p>
-              </li>
-            ))}
-          </ul>
+          <h3>Historia: </h3>
+          <p>{teamInfo.historia}</p>
+          <h3>Jugadores Famosos: </h3>
+          <p> {teamInfo.jugadoresFamosos}</p>
+          <h2>Proximos Partidos</h2>
+          <ul className="matches-list">
+  {matches.map(match => (
+    <li key={match.matchID} className="match-item">
+      <h3 className="league-name">{match.leagueName}</h3>
+      <p className="match-date">{formatDateTime(match.matchDateTime)}</p>
+      <p className="teams">{match.team1.teamName} vs {match.team2.teamName}</p>
+      
+    </li>
+  ))}
+</ul>
         </>
       )}
+      <div className="go-top-container">
+      <button className="go-top-button" onClick={() => window.scrollTo({ top: 0, behavior: 'smooth' })}>
+        Ir arriba
+      </button>
+    </div>
     </div>
   );
 };
