@@ -35,7 +35,7 @@ div {
   h1:hover {
     color: rgba(0, 0, 0, 0.87)
     ;
-    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3); /* Añade un sombreado suave */
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3); 
   }
   
   img {
@@ -55,7 +55,7 @@ div {
     margin-top: 20px;
   }
   
-  /* Estilos para la lista de partidos */
+ 
   
   h2 {
     color: black;
@@ -66,6 +66,42 @@ div {
     list-style-type: none;
     padding: 0;
     
+  }
+  .famous-players-list {
+    list-style: none;
+    padding: 0;
+  }
+  
+  .famous-player-item {
+    display: inline-block;
+    align-items: center;
+    margin-bottom: 10px;
+    text-align: center;
+    transition: transform 0.3s ease; 
+  }
+  
+
+
+.famous-player-item:hover {
+  transform: scale(1.05);
+}
+  
+  .famous-player-item img {
+    width: 230px; /* Ajusta según sea necesario */
+    height: 230px; /* Ajusta según sea necesario */
+    margin-right: 10px;
+    border-radius: 4%;
+  }
+  
+  .famouscontainer{
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    align-items: center;
+  }
+  
+  .famous-player-item p {
+    margin: 0;
   }
   
   li {
