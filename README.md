@@ -35,4 +35,4 @@ La aplicación estará accesible en https://localhost:tu_puerto. Asegúrate de r
 
 ## Uso
 
-Descubre libremente las distintas secciones, explora y examina las estadisticas en base a los resultados del os equipos. Disfruta descubriendo mas acerca de la historia y los equipos de la Bundesliga
+Explora libremente las diversas secciones, examina las estadísticas basadas en los resultados de los equipos y sumérgete en la apasionante historia de la Bundesliga. Disfruta descubriendo más sobre los equipos y su trayectoria.
